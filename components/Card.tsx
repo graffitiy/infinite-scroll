@@ -1,8 +1,7 @@
 import React from 'react';
 import styled from 'styled-components';
 
-const Card = ({content}:any) => { 
-  const { id, email, body } = content;
+const Card = ({ content: { id, email, body } }) => {  
   return (
     <CardWrapper>
     <CardTitle>
