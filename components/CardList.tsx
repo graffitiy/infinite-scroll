@@ -10,15 +10,18 @@ const CardList = () => {
   const isIntersecting = useObserver(target);
   const [page, setPage] = useState(1);
   const [cardData, setCardData] = useState([]);
+  const [stopFetch, setStopFetch] = useState(false);
 
   useEffect(() => {
+    if (stopFetch) return;
     if (isIntersecting) setPage((page) => page + 1);
-  }, [isIntersecting]);
+  }, [isIntersecting,stopFetch]);
 
   const getData =async () =>{
     const newData = await fetchCardData(
         `https://jsonplaceholder.typicode.com/comments?_page=${page}&_limit=10`,
       );
+      if (newData.length === 0) setStopFetch(true);
       setCardData((card) => [...card, ...newData]);
   }
 
@@ -26,14 +29,19 @@ const CardList = () => {
     getData();
   }, [page]);
 
-  console.log('data',cardData);
-
+  
   const cardItems =
-    cardData && cardData.map((card) => <Card key={card.id} content={card} />);
-
-  return <CardListWrapper>{cardData ? cardItems : 'Loading...'}
-        <Observer className="test" ref={target} />
-        </CardListWrapper>;
+  cardData && cardData.map((card) => <Card key={card.id} content={card} />);
+  
+  if(!cardData){
+    return;
+  }
+  console.log('data',cardData); 
+  return (
+    <CardListWrapper>{cardData ? cardItems : 'Loading...'}
+      <Observer className="test" ref={target} />
+    </CardListWrapper>
+  );
 };
 
 export default CardList;
