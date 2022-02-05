@@ -7,10 +7,7 @@ export const GlobalStyle = createGlobalStyle`
     :focus {
         outline: none;
         border: none;
-    }
-    ::-webkit-scrollbar {
-        display: none;
-    }
+    } 
     html{ 
         -webkit-text-size-adjust: none;
         font-family: -apple-system,BlinkMacSystemFont,helvetica,Apple SD Gothic Neo,sans-serif;       

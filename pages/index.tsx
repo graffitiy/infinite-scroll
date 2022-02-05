@@ -1,7 +1,12 @@
-import CardList from "components/CardList"
+import { useRouter } from "next/dist/client/router";
+import { useEffect } from "react";
 
 const Index = () => {
-  return <div><CardList/></div>;
+  const router = useRouter();
+  useEffect(() => {
+    router.push("/cardList");
+  }, []);
+  return <div> </div>;
 };
 
 export default Index;
